@@ -9,6 +9,10 @@ function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
 
+setColorRandom = () => {
+    document.body.style.backgroundColor = getRandomHexColor()
+};
+
 let interval = undefined;
 
 buttons.start.addEventListener('click', evt => interval = interval ?
