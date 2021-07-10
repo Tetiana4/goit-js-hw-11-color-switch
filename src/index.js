@@ -1,23 +1,32 @@
 import './sass/main.scss';
 
-const buttons = {
+const refs = {
     start: document.querySelector('button[data-start]'),
-    stop: document.querySelector('button[data-stop]')
+    stop: document.querySelector('button[data-stop]'),
+    body: document.body,
 }
 
-function getRandomHexColor() {
+const INTERVAL_DELAY = 1000;
+let interval = null;
+
+const getRandomHexColor = () => {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
 
-setColorRandom = () => {
-    document.body.style.backgroundColor = getRandomHexColor()
+refs.start.addEventListener('click', changeColor);
+refs.stop.addEventListener('click', stopColor);
+
+
+function changeColor() {
+    interval = setInterval(() => {
+        refs.body.style.background = getRandomHexColor();
+    }, INTERVAL_DELAY);
+    refs.start.disabled = true;
 };
 
-let interval = undefined;
+function stopColor() {
+    clearInterval(interval);
+    refs.start.disabled = false;
+}
 
-buttons.start.addEventListener('click', evt => interval = interval ?
-    interval : 
-    setInterval(() => getRandomHexColor(), 1000))
-
-buttons.stop.addEventListener('click', evt => clearInterval(interval))
 
